@@ -1,7 +1,7 @@
+import  passport from "passport";
+import {Strategy as localStrategy} from "passport-local";
+import prisma from "./db/pool";
 import bcrypt from "bcryptjs";
-import passport from "passport";
-import { Strategy as localStrategy } from "passport-local";
-import prisma from "./prisma/pool";
 
 passport.use(
     new localStrategy(async (username, password, done) => {
@@ -11,10 +11,13 @@ passport.use(
             username: username,
           },
         });
-        if (user === null)
+        if (user === null) {
           return done(null, false, { message: "Incorrect Username" });
-        const match = await bcrypt.compare(user.password, password);
-        if (!match) return done(null, false, { message: "Incorrect Password" });
+        }
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+          return done(null, false, { message: "Incorrect Password" });
+        }
         return done(null, user);
       } catch (error) {
         return done(error);
@@ -42,3 +45,5 @@ passport.use(
       done(error);
     }
   });
+
+  export default passport;

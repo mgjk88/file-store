@@ -8,7 +8,14 @@
 <body>
     <form action="/sign-up" method="POST">
         <input type="text" name="username" placeholder="username">
+        <% if(errors.username) {%>
+            <p><%= errors.username%></p>
+            <%}%>
         <input type="text" name="password" placeholder="password">
+        <input type="text" name="cnfrmPassword" placeholder="confirm password">
+        <% if(errors.password) {%>
+            <p><%= errors.password%></p>
+            <%}%>
         <button type="submit">sign up</button>
     </form>
     <a href="/">back</a>

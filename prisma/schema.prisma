@@ -21,7 +21,25 @@ model Session {
 }
 
 model User {
-  id       String @id @default(cuid())
-  username String @unique
+  id       String   @id @default(cuid())
+  username String   @unique
   password String
+  files    File[]
+  Folder   Folder[]
+}
+
+model Folder {
+  id      String @id @default(cuid())
+  files   File[]
+  User    User   @relation(fields: [user_id], references: [id])
+  user_id String
+}
+
+model File {
+  id        String  @id @default(cuid())
+  url       String
+  user_id   String  @unique
+  User      User    @relation(fields: [user_id], references: [id])
+  Folder    Folder? @relation(fields: [folder_id], references: [id])
+  folder_id String?
 }
