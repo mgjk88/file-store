@@ -25,21 +25,26 @@ model User {
   username String   @unique
   password String
   files    File[]
-  Folder   Folder[]
+  folders  Folder[]
 }
 
 model Folder {
   id      String @id @default(cuid())
+  name    String @unique
   files   File[]
-  User    User   @relation(fields: [user_id], references: [id])
+  User    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String
 }
 
 model File {
   id        String  @id @default(cuid())
+  name      String
   url       String
-  user_id   String  @unique
-  User      User    @relation(fields: [user_id], references: [id])
-  Folder    Folder? @relation(fields: [folder_id], references: [id])
+  user_id   String
+  User      User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  Folder    Folder? @relation(fields: [folder_id], references: [id], onDelete: Cascade)
   folder_id String?
+  size      Int
+
+  @@unique([name, folder_id])
 }

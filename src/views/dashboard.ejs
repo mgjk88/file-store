@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-</head>
-<body>
-    <form action="/dashboard/logout" method="post"><button type="submit">logout</button></form>
+  </head>
+  <body>
+    <form action="/dashboard/logout" method="post">
+      <button type="submit">logout</button>
+    </form>
     <h1>WELCOME <%= username%></h1>
+    <% folders.map((folder) => {%>
+        <a href="/dashboard/folders/<%=folder.id%>">
+            <%=folder.name%>
+        </a>
+    <%})%>
+    <% files.map((file) => {%>
+        <a href="/dashboard/files/<%=file.id%>">
+            <%=file.name%>
+        </a>
+    <%})%>
     <a href="/dashboard/upload">upload file</a>
-    <a href="">add folder</a>
-</body>
+    <a href="/dashboard/new-folder">add folder</a>
+  </body>
 </html>

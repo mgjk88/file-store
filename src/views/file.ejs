@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= name%></title>
+</head>
+<body>
+    <div>
+        <p>Name: <%=name%></p>
+        <p>Size: <%=size%>b</p>
+    </div>
+    <a href="/dashboard/files/<%=id%>/download">download</a>
+    <form action="/dashboard/files/<%=id%>/delete" method="post"><button type="submit">delete</button></form>
+    <a href="/dashboard">back</a>
+</body>
+</html>
